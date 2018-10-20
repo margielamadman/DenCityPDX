@@ -16,7 +16,7 @@ class Zipcode(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     profile_zipcode = models.ForeignKey(Zipcode, verbose_name='Preferred Zipcode', null=True, on_delete=models.PROTECT)
-    preferred_contact = models.CharField(max_length=30, null=True)
+
 
     def __str__(self):
         return str(self.user)

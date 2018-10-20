@@ -30,6 +30,23 @@ class IndexView(ListView):
             context["login_form"] = AuthenticationForm()
         return context
 
+class AdulistingView(ListView):
+    template_name = "ll_app/adu_listings.html"
+    model = ListingType
+
+    def get_queryset(self):
+        return ListingType.objects.filter(parent=None)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zips'] = Zipcode.objects.all()
+
+        if self.request.user.is_authenticated:
+            context["profile"] = Profile.objects.get(user=self.request.user)
+        else:
+            context["login_form"] = AuthenticationForm()
+        return context
+
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
@@ -95,7 +112,7 @@ class ZipcodeListView(ListView):
         context['zipcode'] = Zipcode.objects.get(id=zipcode_id)
         context['zipcodes'] = Zipcode.objects.all()
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
         else:
             context["login_form"] = AuthenticationForm()
@@ -130,7 +147,7 @@ class ListingDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             context['profile'] = Profile.objects.get(user=self.request.user)
         return context
 
@@ -153,7 +170,7 @@ class CategoryListView(ListView):
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
-    fields = ['profile_zipcode', 'preferred_contact']
+    fields = ['profile_zipcode', ]
     success_url = reverse_lazy("index_view")
 
     # Why dont I have to declare a model here??
