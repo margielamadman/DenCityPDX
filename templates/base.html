@@ -18,23 +18,23 @@
 <body>
   <nav class="navbar navbar-default narbar-static-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <!-- <img alt="DTC" src="/static/img/dtc-small.png"> -->
+      <a class="navbar-brand" <img href="{% static 'll_app/img/icon-garbage-small.png'%}"> </a>
+      <!-- <img alt="DTC" src="/static/img/dtc-small.png"> -->
       </a>
       <!-- Brand and toggle get grouped for better mobile display -->
-        <ul class="nav navbar-nav">
-          {% if request.user.is_authenticated %}
-          <li> <a href="#">Welcome {{ request.user }}</a></li>
+      <ul class="nav navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li> <a href="#">Welcome {{ request.user }}</a></li>
 
-          <li> <a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
-          {% else %}
-          <li><a href="{% url 'register_view' %}">Get an account</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
+        <li> <a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
+        {% else %}
+        <li><a href="{% url 'register_view' %}">Get an account</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
 
-          <li class="active"><a href="{% url 'index_view' %}">Home<span class="sr-only">(current)</span></a></li>
-          <li><a href="{% url 'adulisting_view' %}">ADU Listings</a></li>
-          <li><a href="/category/1">DTC Listings</a></li>
+        <li class="active"><a href="{% url 'index_view' %}">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'adulisting_view' %}">ADU Listings</a></li>
+        <li><a href="/category/1">DTC Listings</a></li>
         <ul class="nav navbar-nav navbar-right">
           <!-- ABOUT VIEW -->
           <li><a href="{# % url 'about_view' %}">About</a></li>
@@ -50,9 +50,9 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-9 mx-auto">
-    {% block body %}
-    body content
-    {% endblock %}
+        {% block body %}
+        body content
+        {% endblock %}
       </div>
     </div>
   </div>
