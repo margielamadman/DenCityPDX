@@ -23,7 +23,6 @@
         <ul class="nav navbar-nav">
           {% if request.user.is_authenticated %}
           <li> <a href="#">Welcome {{ request.user }}</a></li>
-          <li> <a href="{% url 'add' %}">Add Listing</a></li>
 
           <li> <a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
           {% else %}

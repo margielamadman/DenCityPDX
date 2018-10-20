@@ -40,13 +40,14 @@ class RegisterView(CreateView):
 class ListingCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Listing
-    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo', 'address', 'sqft', 'category', ]
+    fields = ['listing_zipcode', 'address', 'sqft', 'title', 'price', 'summary', 'photo', ]
 
     def form_valid(self, form):
         listing = form.save(commit=False)
         listing.user = self.request.user
         category_id = self.kwargs.get('categorypk')
         listing.category = ListingType.objects.get(id=category_id)
+
         return super().form_valid(form)
 
     def get_success_url(self):
