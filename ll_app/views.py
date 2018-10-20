@@ -90,7 +90,7 @@ class ZipcodeListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        city_id = self.kwargs.get('zipcode')
+        zipcode_id = self.kwargs.get('zipcode')
         context['zipcode'] = Zipcode.objects.get(id=zipcode_id)
         context['zipcodes'] = Zipcode.objects.all()
 
