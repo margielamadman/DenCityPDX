@@ -1,9 +1,6 @@
 body {
-    margin-top: 0px;
-    /* padding-right: 50%; */
-    background-image: url("../img/map.png");
+    margin-top: 60px;
 }
-
 .nav {
     background-color: #EEEEEE;
 }
