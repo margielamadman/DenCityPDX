@@ -31,8 +31,13 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">DenCity PDX</a>
+        {% if request.user.is_authenticated %}
+            <li role="presentation" class="pull-right"><a href="{%url 'logout'%}?next={% url 'index_view' %}">Log Out</a></li>
+            <li role="presentation"><a href="{% url 'category_list_view' categorypk=1 %}">Listings</a></li>
+        {% else %}
         <a class="btn btn-primary" href="{% url 'login' %}">Sign In</a>
       </div>
+        {% endif %}
     </nav>
 
     <!-- Masthead -->
