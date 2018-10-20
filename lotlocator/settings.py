@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     # 'rest_framework_docs',
     'rest_framework_swagger',
+    'djmoney',
 ]
 
 MIDDLEWARE = [

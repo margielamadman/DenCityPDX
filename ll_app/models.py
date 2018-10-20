@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from djmoney.models.fields import MoneyField
 
 
 # Create your models here.
@@ -34,8 +35,8 @@ class Listing(models.Model):
     listing_city = models.ForeignKey(City, on_delete=models.PROTECT)
     category = models.ForeignKey(ListingType, on_delete=models.PROTECT)
     title = models.CharField(max_length=40)
-    price = models.IntegerField()
-    description = models.TextField()
+    price = MoneyField(max_digits=12, decimal_places=2, default_currency='USD')
+    summary = models.TextField()
     photo = models.ImageField(upload_to="listing_photos", null=True, blank=True, verbose_name="Listing Photo")
     created = models.DateTimeField(auto_now_add=True)
 

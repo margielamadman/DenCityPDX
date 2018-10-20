@@ -9,7 +9,7 @@ class ListingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Listing
-        fields = ['id', 'user', 'listing_city', 'category', 'title', 'price', 'description', 'photo', 'created']
+        fields = ['id', 'user', 'listing_city', 'category', 'title', 'price', 'summary', 'photo', 'created']
 
 
 class ListingTypeSerializer(serializers.ModelSerializer):
