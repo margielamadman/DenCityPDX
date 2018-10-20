@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>DenCity PDX</title>
+    <link rel="shortcut icon" href="{% static 'll_app/img/favicon.ico' %}">
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'll_app/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -30,7 +31,7 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">DenCity PDX</a>
-        <a class="btn btn-primary" href="#">Sign In</a>
+        <a class="btn btn-primary" href="{% url 'login' %}">Sign In</a>
       </div>
     </nav>
 
@@ -41,8 +42,7 @@
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <h1 class="md-5 text-center">What's your unused property worth?</h1>
-                  <button id="btnSearch" class="btn btn-primary btn-md center-block" Style="width: 100px;" OnClick="btnSearch_Click" >Explore</button>
-                   <button id="btnClear" class="btn btn-primary btn-md center-block" Style="width: 100px;" OnClick="btnClear_Click" >Register</button>
+                   <a id="btnClear" class="btn btn-primary btn-md center-block" role="button" Style="width: 100px;" href="{% url 'register_view' %}">Register</a>
                </div>
           </div>
                 </div>
@@ -142,6 +142,8 @@
         </div>
       </div>
     </section>
+
+    <!-- Footer Map -->
 
     <!-- Call to Action -->
     <section class="call-to-action text-white text-center">
