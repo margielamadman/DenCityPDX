@@ -1,7 +1,7 @@
 import operator
 from functools import reduce
 from django.db.models import Q
-# from django.shortcuts import render
+from django.shortcuts import render
 from ll_app.models import Listing, Profile, ListingType, Zipcode
 from django.views.generic import ListView, CreateView, DetailView
 # from django.views.generic.base import TemplateView
@@ -202,3 +202,6 @@ class SearchListView(ListView):
         context = super().get_context_data(**kwargs)
         context['search'] = "search"
         return context
+
+def about(request):
+    return render(request, "about.html")

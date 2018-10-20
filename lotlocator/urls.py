@@ -19,6 +19,7 @@ from ll_app.views import IndexView, RegisterView, SearchListView, ListingUpdateV
 from ll_api.views import ListingListCreateAPIView, ListingRetrieveUpdateAPIView, CategoryListCreateAPIView, CategoryRetrieveUpdateAPIView, SubCategoryListCreateAPIView, SubCategoryRetrieveUpdateAPIView, CategoryListingListAPIView, SubCategoryListingListAPIView, UserCreateAPIView
 from django.conf.urls.static import static
 from django.conf import settings
+from ll_app import views as ll_appviews
 from rest_framework.authtoken import views
 from rest_framework_swagger.views import get_swagger_view
 
@@ -29,6 +30,7 @@ urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^', include('django.contrib.auth.urls')),
     re_path(r'^$', IndexView.as_view(), name='index_view'),
+    re_path(r'^#about$', ll_appviews.about, name='about_view'),
     re_path(r'^adulistings/$', AdulistingView.as_view(), name='adulisting_view'),
     # re_path(r'explore/$', Explore.as_view(), name='explore_view'),
     re_path(r'^register/$', RegisterView.as_view(), name='register_view'),
