@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from ll_app.views import IndexView, RegisterView, SearchListView, ListingUpdateView, ListingDeleteView, ListingTypeCreateView, ListingCreateView, ListingDetailView, ProfileView, CityListView, CategoryListView, CityCategoryListView
+from ll_app.views import IndexView, RegisterView, SearchListView, ListingUpdateView, ListingDeleteView, ListingTypeCreateView, ListingCreateView, ListingDetailView, ProfileView, ZipcodeListView, CategoryListView, ZipcodeCategoryListView
 from ll_api.views import ListingListCreateAPIView, ListingRetrieveUpdateAPIView, CategoryListCreateAPIView, CategoryRetrieveUpdateAPIView, SubCategoryListCreateAPIView, SubCategoryRetrieveUpdateAPIView, CategoryListingListAPIView, SubCategoryListingListAPIView, UserCreateAPIView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -37,8 +37,8 @@ urlpatterns = [
     re_path(r'^listingdelete/(?P<pk>\d+)$', ListingDeleteView.as_view(), name='listing_delete_view'),
     re_path(r'^listing/(?P<pk>\d+)/$', ListingDetailView.as_view(), name='listing_detail_view'),
     re_path(r'^catergory/(?P<categorypk>\d+)/$', CategoryListView.as_view(), name='category_list_view'),
-    re_path(r'^city/(?P<city>\d+)/$', CityListView.as_view(), name='city_list_view'),
-    re_path(r'^city/(?P<citypk>\d+)/(?P<categorypk>\d+)/$', CityCategoryListView.as_view(), name='city_category_list_view'),
+    re_path(r'^zipcode/(?P<zipcode>\d+)/$', ZipcodeListView.as_view(), name='zipcode_list_view'),
+    re_path(r'^zipcode/(?P<zipcodepk>\d+)/(?P<categorypk>\d+)/$', ZipcodeCategoryListView.as_view(), name='zipcode_category_list_view'),
     # Start API urls
     re_path(r'^api/api-token-auth/', views.obtain_auth_token),
     re_path(r'^api/register/$', UserCreateAPIView.as_view(), name='create_user_view'),

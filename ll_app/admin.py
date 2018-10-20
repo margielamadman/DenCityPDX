@@ -1,20 +1,20 @@
 from django.contrib import admin
-from ll_app.models import Listing, Profile, City, ListingType
+from ll_app.models import Listing, Profile, Zipcode, ListingType
 # Register your models here.
 
 admin.site.register(Profile)
 
 
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'price', 'listing_city', 'category']
+    list_display = ['title', 'price', 'listing_zipcode', 'category']
 
 admin.site.register(Listing, ListingAdmin)
 
 
-class CityAdmin(admin.ModelAdmin):
-    list_display = ['city']
+class ZipcodeAdmin(admin.ModelAdmin):
+    list_display = ['zipcode']
 
-admin.site.register(City)
+admin.site.register(Zipcode)
 
 
 class ListingTypeAdmin(admin.ModelAdmin):

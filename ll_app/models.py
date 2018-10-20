@@ -6,16 +6,16 @@ from djmoney.models.fields import MoneyField
 
 
 # Create your models here.
-class City(models.Model):
-    city = models.CharField(max_length=20)
+class Zipcode(models.Model):
+    zipcode = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.city
+        return self.zipcode
 
 
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
-    profile_city = models.ForeignKey(City, verbose_name='Preferred City', null=True, on_delete=models.PROTECT)
+    profile_zipcode = models.ForeignKey(Zipcode, verbose_name='Preferred Zipcode', null=True, on_delete=models.PROTECT)
     preferred_contact = models.CharField(max_length=30, null=True)
 
     def __str__(self):
@@ -32,7 +32,9 @@ class ListingType(models.Model):
 
 class Listing(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    listing_city = models.ForeignKey(City, on_delete=models.PROTECT)
+    listing_zipcode = models.ForeignKey(Zipcode, on_delete=models.PROTECT)
+    address = models.CharField(max_length=40),
+    sqft = models.IntegerField(),
     category = models.ForeignKey(ListingType, on_delete=models.PROTECT)
     title = models.CharField(max_length=40)
     price = MoneyField(max_digits=12, decimal_places=2, default_currency='USD')
