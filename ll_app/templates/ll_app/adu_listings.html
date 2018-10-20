@@ -35,7 +35,7 @@
             <h3>Pick a zipcode to view listings.</h3>
             <div class="list-group">
                 {% for zipcode in zips %}
-                <a href="{% url 'zipcode_list_view' zipcode.pk %}" class="list-group-item">{{ zipcode }}</a>
+                <a href="{% url 'zipcode_list_view' zipcode.pk %}2" class="list-group-item">{{ zipcode }}</a>
                 {% endfor %}
             </div>
         </div>

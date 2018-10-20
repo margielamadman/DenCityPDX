@@ -40,7 +40,7 @@ class Listing(models.Model):
     price = MoneyField(max_digits=12, decimal_places=2, default_currency='USD')
     summary = models.TextField()
     photo = models.ImageField(upload_to="listing_photos", null=True, blank=True, verbose_name="Listing Photo")
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.title

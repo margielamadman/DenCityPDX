@@ -1,5 +1,6 @@
 body {
     margin-top: 60px;
+    background-image: url('../img/map.png');
 }
 .nav {
     background-color: #EEEEEE;

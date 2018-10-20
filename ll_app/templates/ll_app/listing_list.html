@@ -6,7 +6,7 @@
         {% if zipcode %}
             {{ zipcode }} >
         {% else %}
-            All Cities >
+            All Zones >
         {% endif %}
         {% if category %}
             {{ category }}
@@ -47,8 +47,8 @@
         <div class="item listing-list">
             <p><small>&#9734;</small>
                 <span class="time">{{ item.created|date:"N d" }} </span>
-                <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
-                <span class="price">${{ item.price }}</span>
+                <a class="text-success" href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
+                <span class="price">{{ item.price }}</span>
                 <small>({{ item.listing_zipcode }}) </small>
                 {% if item.photo %}
                 <span class="pic">pic</span>
@@ -70,7 +70,7 @@
                 <p><small>&#9734;</small>
                     <span class="time">{{ item.created|date:"N d" }} </span>
                     <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
-                    <span class="price">${{ item.price }}</span>
+                    <span class="price">{{ item.price }}</span>
                     <small>({{ item.listing_zipcode }}) </small>
             </div>
         </div>
@@ -92,7 +92,7 @@
                     <p><small>&#9734;</small>
                         <span class="time">{{ item.created|date:"N d" }} </span>
                         <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
-                        <span class="price">${{ item.price }}</span>
+                        <span class="price">{{ item.price }}</span>
                         <small>({{ item.listing_zipcode }}) </small>
                     </p>
                 </div>
