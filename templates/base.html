@@ -1,50 +1,75 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>{% block title %}Dencity PDX{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'll_app/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'll_app/css/main.css' %}">
-    </head>
-    <body>
-        {# menu bar #}
-        <ul class="nav nav-tabs navbar-fixed-top">
-            <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
-            {% if request.user.is_authenticated %}
-                <li role="presentation" class=""><a href="{% url 'profile_view' %}">Your Profile</a></li>
-                <li role="presentation" class="pull-right"><a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
-                <li role="presentation" class="disabled pull-right"><a href="#">Welcome {{ request.user }}</a></li>
-            {% else %}
-                <li role="presentation"><a href="{% url 'register_view' %}">Get an account</a></li>
-                <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-            {# search #}
-            <form id="searchform" action="{% url 'search_list_view' %}" method="get" accept-charset="utf-8">
-                <div class="input-group col-md-3 pull-right">
-                    <input class="form-control" id="searchbox" name="q" type="text" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                </div>
-            </form>
-        </ul>
+<html lang="en" dir="ltr">
 
-        {% block hero %}
-        <p class="text-center">To post a new listing, go to the category you would like to place it in and click the Add New Listing button.</p>
-        {% endblock %}
-        <div class="container">
-            {% block body %}
-                body content
-            {% endblock %}
-        </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        {# <script src="{% static 'bank_app/js/bootstrap.js' %}"></script>#}
-    </body>
-    <footer>
-        <hr>
-        <p class="text-center">Made by DTC</p>
-    </footer>
+<head>
+  <meta charset="utf-8">
+  <title>DenCity</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- bootstrap javascript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-default narbar-static-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <!-- <img alt="DTC" src="/static/img/dtc-small.png"> -->
+      </a>
+      <!-- Brand and toggle get grouped for better mobile display -->
+        <ul class="nav navbar-nav">
+          {% if request.user.is_authenticated %}
+          <li> <a href="#">Welcome {{ request.user }}</a></li>
+          <li> <a href="{% url 'add' %}">Add Listing</a></li>
+
+          <li> <a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'register_view' %}">Get an account</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+
+          <li class="active"><a href="{% url 'index_view' %}">Home<span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Listings</a></li>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- ABOUT VIEW -->
+          <li><a href="{# % url 'about_view' %}">About</a></li>
+        </ul>
+      </ul>
+    </div>
+  </nav>
+
+
+  {% block hero %}
+  {% endblock %}
+
+  <div class="container">
+    {% block body %}
+    body content
+    {% endblock %}
+  </div>
+
+  <nav class="navbar navbar-bottom justify-content-center">
+    <!-- <div class="navbar-header"> -->
+    <div class="mx-auto order-0">
+      <p class="navbar-brand mx-auto"> Created for Hack-for-a-cause PDX 2018 </p>
+    </div>
+  </nav>
+</body>
+
 </html>
+
+<!-- <li class="dropdown">
+  <a href="#" class="drospdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">One more separated link</a></li>
+  </ul>
+</li> -->
