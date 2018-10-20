@@ -27,22 +27,22 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">DenCity PDX</a>
-        <a class="btn btn-success" href="{% url 'login' %}">Sign In</a>
-      </div>
-    </nav>
+    <nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'll_app/img/icon-garbage-small.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    DenCity PDX
+  </a>
+</nav>
 
     <!-- Masthead -->
-    <header class="masthead text-white text-center">
+    <header class="masthead text-light text-center">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <h1 class="md-5 text-center">What's your unused property worth?</h1>
                    <a id="btnClear" class="btn btn-success btn-md center-block" role="button" Style="width: 100px;" href="{% url 'register_view' %}">Register</a>
+                   <a id="btnClear" class="btn btn-success btn-md center-block" role="button" Style="width: 100px;" href="{% url 'login' %}">Login</a>
                </div>
           </div>
                 </div>
@@ -72,7 +72,7 @@
                 <i class="icon-cursor m-auto text-success"></i>
               </div>
               <h3>Easy to Use</h3>
-              <p class="lead mb-0">Efficiently connects density credit holders with developers.</p>
+              <p class="lead mb-0">Efficiently connects property holders with developers.</p>
             </div>
           </div>
           <div class="col-lg-4">
