@@ -27,23 +27,6 @@ class IndexView(ListView):
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
         else:
-            context["login_form"] = AuthenticationForm
-        return context
-
-class AdulistingView(ListView):
-    template_name = "ll_app/adu_listings.html"
-    model = ListingType
-
-    def get_queryset(self):
-        return ListingType.objects.filter(parent=None)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['zips'] = Zipcode.objects.all()
-
-        if self.request.user.is_authenticated:
-            context["profile"] = Profile.objects.get(user=self.request.user)
-        else:
             context["login_form"] = AuthenticationForm()
         return context
 
@@ -57,14 +40,13 @@ class RegisterView(CreateView):
 class ListingCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Listing
-    fields = ['listing_zipcode', 'address', 'sqft', 'title', 'price', 'summary', 'photo', ]
+    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo', 'address', 'sqft', 'category', ]
 
     def form_valid(self, form):
         listing = form.save(commit=False)
         listing.user = self.request.user
         category_id = self.kwargs.get('categorypk')
         listing.category = ListingType.objects.get(id=category_id)
-
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -112,7 +94,7 @@ class ZipcodeListView(ListView):
         context['zipcode'] = Zipcode.objects.get(id=zipcode_id)
         context['zipcodes'] = Zipcode.objects.all()
 
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated():
             context["profile"] = Profile.objects.get(user=self.request.user)
         else:
             context["login_form"] = AuthenticationForm()
@@ -147,7 +129,7 @@ class ListingDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated():
             context['profile'] = Profile.objects.get(user=self.request.user)
         return context
 
@@ -157,7 +139,6 @@ class CategoryListView(ListView):
 
     def get_queryset(self, **kwargs):
         category_id = self.kwargs.get('categorypk')
-        sort = self.request.GET.get('sort')
         if sort:
             return Listing.objects.filter(category=category_id).order_by(sort)
         else:
@@ -170,7 +151,7 @@ class CategoryListView(ListView):
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
-    fields = ['profile_zipcode', ]
+    fields = ['profile_zipcode', 'preferred_contact']
     success_url = reverse_lazy("index_view")
 
     # Why dont I have to declare a model here??

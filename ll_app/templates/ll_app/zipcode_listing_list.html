@@ -9,10 +9,10 @@
             {% if request.user.is_authenticated %}
             <h2>Hello {{ request.user }},
                 {% if profile.profile_zipcode %}
-                <br><small>Would you like to go to your perferred zip code page,
+                <br><small>Would you like to go to your perfered zip code page,
                 <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
                 {% else %}
-                <br><small>You do not have a saved perferred zip code, please update your profile.
+                <br><small>You do not have a saved perfered zip code, please update your profile.
                     <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
                 {% endif %}
             </h2>

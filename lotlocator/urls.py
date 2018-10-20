@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from ll_app.views import IndexView, RegisterView, SearchListView, ListingUpdateView, ListingDeleteView, ListingTypeCreateView, ListingCreateView, ListingDetailView, ProfileView, ZipcodeListView, CategoryListView, ZipcodeCategoryListView, AdulistingView
+from ll_app.views import IndexView, RegisterView, SearchListView, ListingUpdateView, ListingDeleteView, ListingTypeCreateView, ListingCreateView, ListingDetailView, ProfileView, ZipcodeListView, CategoryListView, ZipcodeCategoryListView
 from ll_api.views import ListingListCreateAPIView, ListingRetrieveUpdateAPIView, CategoryListCreateAPIView, CategoryRetrieveUpdateAPIView, SubCategoryListCreateAPIView, SubCategoryRetrieveUpdateAPIView, CategoryListingListAPIView, SubCategoryListingListAPIView, UserCreateAPIView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -29,8 +29,6 @@ urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^', include('django.contrib.auth.urls')),
     re_path(r'^$', IndexView.as_view(), name='index_view'),
-    re_path(r'^adulistings/$', AdulistingView.as_view(), name='adulisting_view'),
-    # re_path(r'explore/$', Explore.as_view(), name='explore_view'),
     re_path(r'^register/$', RegisterView.as_view(), name='register_view'),
     re_path(r'^register/profile/$', ProfileView.as_view(), name='profile_view'),
     re_path(r'^search/$', SearchListView.as_view(), name='search_list_view'),
@@ -38,7 +36,7 @@ urlpatterns = [
     re_path(r'^listingupdate/(?P<pk>\d+)$', ListingUpdateView.as_view(), name='listing_update_view'),
     re_path(r'^listingdelete/(?P<pk>\d+)$', ListingDeleteView.as_view(), name='listing_delete_view'),
     re_path(r'^listing/(?P<pk>\d+)/$', ListingDetailView.as_view(), name='listing_detail_view'),
-    re_path(r'^category/(?P<categorypk>\d+)/$', CategoryListView.as_view(), name='category_list_view'),
+    re_path(r'^catergory/(?P<categorypk>\d+)/$', CategoryListView.as_view(), name='category_list_view'),
     re_path(r'^zipcode/(?P<zipcode>\d+)/$', ZipcodeListView.as_view(), name='zipcode_list_view'),
     re_path(r'^zipcode/(?P<zipcodepk>\d+)/(?P<categorypk>\d+)/$', ZipcodeCategoryListView.as_view(), name='zipcode_category_list_view'),
     # Start API urls
