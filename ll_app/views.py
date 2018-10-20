@@ -139,6 +139,7 @@ class CategoryListView(ListView):
 
     def get_queryset(self, **kwargs):
         category_id = self.kwargs.get('categorypk')
+        sort = self.request.GET.get('sort')
         if sort:
             return Listing.objects.filter(category=category_id).order_by(sort)
         else:
