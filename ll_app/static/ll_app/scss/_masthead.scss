@@ -12,9 +12,11 @@ header.masthead {
     width: 100%;
     top: 0;
     left: 0;
-    opacity: 0.3;
+    opacity: 0.6;
   }
   h1 {
+    background: rgb(170, 187, 97); /* Fallback */
+    background: rgba(170, 187, 97, 0.5);
     font-size: 2rem;
   }
   @media (min-width: 768px) {

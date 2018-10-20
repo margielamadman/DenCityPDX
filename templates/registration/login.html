@@ -2,9 +2,35 @@
 
 {% block body %}
 <h1>Dencity PDX</h1>
-<form class="form-center text-center" action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-default" type="submit" name="updateprofile" value="Update Profile">
-</form>
+<hr>
+    <div class="row">
+        <div class="col-xl-9 mx-auto">
+            {% if request.user.is_authenticated %}
+            <h2>Hello {{ request.user }},
+                {% if profile.profile_zipcode %}
+                <br><small>Would you like to go to your perferred zipcode page,
+                <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
+                {% else %}
+                <br><small>You do not have a saved perferred zipcode, please update your profile.
+                    <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
+                {% endif %}
+            </h2>
+            {% else %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login to Dencity PDX</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="" action="" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class="btn btn-default" type="submit" name="login" value="Login">
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
 {% endblock %}

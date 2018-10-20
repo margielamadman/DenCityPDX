@@ -6,7 +6,7 @@ admin.site.register(Profile)
 
 
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'price', 'listing_zipcode', 'category']
+    list_display = ['title', 'price', 'listing_zipcode', 'category', 'address', 'sqft']
 
 admin.site.register(Listing, ListingAdmin)
 

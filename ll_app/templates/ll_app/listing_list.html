@@ -26,9 +26,9 @@
 
     {% if not search %}
     <div class="btn-group pull-left" role="group">
-        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=-created"  class="btn btn-default">Sort: Date</a>
-        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=price"  class="btn btn-default">Sort: Price Low/High</a>
-        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=-price"  class="btn btn-default">Sort: Price High/Low</a>
+        <a href="{#  url 'zipcode_category_list_view' zipcode_id category_id #}?sort=-created"  class="btn btn-default">Sort: Date</a>
+        <a href="{#  url 'zipcode_category_list_view' zipcode_id category_id #}?sort=price"  class="btn btn-default">Sort: Price Low/High</a>
+        <a href="{#  url 'zipcode_category_list_view' zipcode_id category_id #}?sort=-price"  class="btn btn-default">Sort: Price High/Low</a>
     </div>
     {% endif %}
 
