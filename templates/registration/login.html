@@ -7,9 +7,9 @@
         <div class="col-md-6">
             {% if request.user.is_authenticated %}
             <h2>Hello {{ request.user }},
-                {% if profile.profile_city %}
+                {% if profile.profile_zipcode %}
                 <br><small>Would you like to go to your perferred zipcode page,
-                <a href="{% url 'city_list_view' profile.profile_city.pk %}">{{ profile.profile_zipcode }}</a>?</small>
+                <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
                 {% else %}
                 <br><small>You do not have a saved perferred zipcode, please update your profile.
                     <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
