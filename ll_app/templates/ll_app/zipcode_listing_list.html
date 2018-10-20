@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <h1 class="text-center">this is... notCraigslist</h1>
-    <h2>{{ city.city }}</h2>
+    <h1 class="text-center">Dencity PDX</h1>
+    <h2>{{ zipcode.zipcode }}</h2>
     <hr>
     <div class="row">
         <div class="col-md-3">
             {% if request.user.is_authenticated %}
             <h2>Hello {{ request.user }},
-                {% if profile.profile_city %}
-                <br><small>Would you like to go to your perfered city page,
-                <a href="{% url 'city_list_view' profile.profile_city.pk %}">{{ profile.profile_city }}</a>?</small>
+                {% if profile.profile_zipcode %}
+                <br><small>Would you like to go to your perfered zip code page,
+                <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
                 {% else %}
-                <br><small>You do not have a saved perfered city, please update your profile.
+                <br><small>You do not have a saved perfered zip code, please update your profile.
                     <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
                 {% endif %}
             </h2>
             {% else %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Login to notCraigslist</h3>
+                    <h3 class="panel-title">Login to Dencity PDX</h3>
                 </div>
                 <div class="panel-body">
                     <form class="" action="{% url 'login' %}" method="post">
@@ -31,8 +31,8 @@
             </div>
             {% endif %}
             <div class="list-group">
-                {% for city in cities %}
-                <a href="{% url 'city_list_view' city.pk %}" class="list-group-item">{{ city }}</a>
+                {% for zipcode in zipcodes %}
+                <a href="{% url 'zipcode_list_view' zipcode.pk %}" class="list-group-item">{{ zipcode }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -40,12 +40,12 @@
             {% for list in object_list %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><a href="{% url 'city_category_list_view' city.pk list.pk %}">{{ list }}</a></h3>
+                    <h3 class="panel-title"><a href="{% url 'zipcode_category_list_view' zipcode.pk list.pk %}">{{ list }}</a></h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-unstyled">
                         {% for sub in list.subcat.all %}
-                        <li><a href="{% url 'city_category_list_view' city.pk sub.pk %}">{{ sub }}</a></li>
+                        <li><a href="{% url 'zipcode_category_list_view' zipcode.pk sub.pk %}">{{ sub }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

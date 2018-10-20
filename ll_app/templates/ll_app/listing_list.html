@@ -3,8 +3,8 @@
 
 {% block body %}
     <h1>
-        {% if city %}
-            {{ city }} >
+        {% if zipcode %}
+            {{ zipcode }} >
         {% else %}
             All Cities >
         {% endif %}
@@ -26,9 +26,9 @@
 
     {% if not search %}
     <div class="btn-group pull-left" role="group">
-        <a href="{% url 'city_category_list_view' city_id category_id %}?sort=-created"  class="btn btn-default">Sort: Date</a>
-        <a href="{% url 'city_category_list_view' city_id category_id %}?sort=price"  class="btn btn-default">Sort: Price Low/High</a>
-        <a href="{% url 'city_category_list_view' city_id category_id %}?sort=-price"  class="btn btn-default">Sort: Price High/Low</a>
+        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=-created"  class="btn btn-default">Sort: Date</a>
+        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=price"  class="btn btn-default">Sort: Price Low/High</a>
+        <a href="{% url 'zipcode_category_list_view' zipcode_id category_id %}?sort=-price"  class="btn btn-default">Sort: Price High/Low</a>
     </div>
     {% endif %}
 
@@ -49,7 +49,7 @@
                 <span class="time">{{ item.created|date:"N d" }} </span>
                 <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
                 <span class="price">${{ item.price }}</span>
-                <small>({{ item.listing_city }}) </small>
+                <small>({{ item.listing_zipcode }}) </small>
                 {% if item.photo %}
                 <span class="pic">pic</span>
                 {% endif %}
@@ -71,7 +71,7 @@
                     <span class="time">{{ item.created|date:"N d" }} </span>
                     <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
                     <span class="price">${{ item.price }}</span>
-                    <small>({{ item.listing_city }}) </small>
+                    <small>({{ item.listing_zipcode }}) </small>
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@
                         <span class="time">{{ item.created|date:"N d" }} </span>
                         <a href="{% url 'listing_detail_view' item.pk %}">{{ item.title }} </a>
                         <span class="price">${{ item.price }}</span>
-                        <small>({{ item.listing_city }}) </small>
+                        <small>({{ item.listing_zipcode }}) </small>
                     </p>
                 </div>
             </div>
