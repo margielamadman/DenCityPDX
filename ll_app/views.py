@@ -40,7 +40,7 @@ class RegisterView(CreateView):
 class ListingCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Listing
-    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo']
+    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo', 'address', 'sqft', 'category', ]
 
     def form_valid(self, form):
         listing = form.save(commit=False)
@@ -55,7 +55,7 @@ class ListingCreateView(LoginRequiredMixin, CreateView):
 
 class ListingUpdateView(LoginRequiredMixin, UpdateView):
     model = Listing
-    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo']
+    fields = ['listing_zipcode', 'title', 'price', 'description', 'photo', 'address', 'sqft', 'category', ]
 
     def get_success_url(self):
         return reverse("listing_detail_view", args=(self.object.id,))
