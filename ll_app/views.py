@@ -27,7 +27,7 @@ class IndexView(ListView):
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
         else:
-            context["login_form"] = AuthenticationForm()
+            context["login_form"] = AuthenticationForm
         return context
 
 class AdulistingView(ListView):

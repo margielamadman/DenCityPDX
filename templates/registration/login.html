@@ -7,9 +7,9 @@
         <div class="col-xl-9 mx-auto">
             {% if request.user.is_authenticated %}
             <h2>Hello {{ request.user }},
-                {% if profile.profile_city %}
+                {% if profile.profile_zipcode %}
                 <br><small>Would you like to go to your perferred zipcode page,
-                <a href="{% url 'city_list_view' profile.profile_city.pk %}">{{ profile.profile_zipcode }}</a>?</small>
+                <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
                 {% else %}
                 <br><small>You do not have a saved perferred zipcode, please update your profile.
                     <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
@@ -21,9 +21,9 @@
                     <h3 class="panel-title">Login to Dencity PDX</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="" action="{% url 'login' %}" method="post">
+                    <form class="" action="" method="post">
                         {% csrf_token %}
-                        {{ login_form.as_p }}
+                        {{ form.as_p }}
                         <input class="btn btn-default" type="submit" name="login" value="Login">
                     </form>
                 </div>
