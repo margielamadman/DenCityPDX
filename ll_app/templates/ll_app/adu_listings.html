@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Dencity PDX</h1>
-<hr>
+    <h1 class="text-center">Dencity PDX</h1>
+
+    <hr>
     <div class="row">
         <div class="col-md-6">
             {% if request.user.is_authenticated %}
             <h2>Hello {{ request.user }},
                 {% if profile.profile_city %}
                 <br><small>Would you like to go to your perferred zipcode page,
-                <a href="{% url 'city_list_view' profile.profile_city.pk %}">{{ profile.profile_zipcode }}</a>?</small>
+                <a href="{% url 'zipcode_list_view' profile.profile_zipcode.pk %}">{{ profile.profile_zipcode }}</a>?</small>
                 {% else %}
                 <br><small>You do not have a saved perferred zipcode, please update your profile.
                     <a class="btn btn-default" href="{% url 'profile_view' %}">Update Profile</a></small>
@@ -18,7 +19,7 @@
             {% else %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Login to Dencity PDX</h3>
+                    <h3 class="panel-title">Login to DTC</h3>
                 </div>
                 <div class="panel-body">
                     <form class="" action="{% url 'login' %}" method="post">
@@ -30,7 +31,15 @@
             </div>
             {% endif %}
         </div>
-
+        <div class="col-md-6">
+            <h3>Pick a zipcode to view listings.</h3>
+            <div class="list-group">
+                {% for zipcode in zips %}
+                <a href="{% url 'zipcode_list_view' zipcode.pk %}" class="list-group-item">{{ zipcode }}</a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
 
 {% endblock %}
