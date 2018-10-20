@@ -1,0 +1,6 @@
+Django
+markdown
+Pillow
+django-filter
+django-rest-swagger
+djangorestframework
