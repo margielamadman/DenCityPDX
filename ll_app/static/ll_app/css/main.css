@@ -1,9 +1,9 @@
 body {
     margin-top: 60px;
-    background-image: url('../img/map.png');
+    background-color: #EBF4EC;
 }
 .nav {
-    background-color: #EEEEEE;
+    background-color: #FFFFFF;
 }
 .price {
     font-size: .7em;
