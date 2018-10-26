@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 
 {% block body %}
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:50%; }
+  #geocoder-container > div {
+    min-width:50%;
+    margin-left:25%;
+  }
+  </style>
+<style>
+  .mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+</style>
+
     <div class="row">
         <div class="col-md-7">
             <h2 class="postingtitle"><small>&#9734;</small> {{ object.title }} <span> -  {{ object.price }}</span><span> -  {{ object.sqft }} sq. ft.</span></h2>
@@ -9,7 +29,357 @@
             <br>
             <br>
         </div>
-    <p>{{ object.description }}</p>
+    <script>console.log("{{object.title}}");</script>
+    <!-- insert map here -->
+    <p>
+        {{ object.description }}
+        <div class="row">
+                <div id='map'></div>
+                    <script>
+                    mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JhZmEiLCJhIjoiY2ptYjNtZWxnMDBrdDNwbnVicGJzOWg2NyJ9.9OulyCe3kEqMAXPbx1mKUA';
+                    var map = new mapboxgl.Map({
+                      container: 'map',
+                      style: 'mapbox://styles/grafa/cjngi136g41ia2sr2wkfuko46',
+                      zoom: 14,
+                      center: [-122.66497032017605,45.55411587421071],
+                      pitch: 35,
+                      // bearing: 350
+                    });
+
+                    var geocoder = new MapboxGeocoder({
+                      accessToken: mapboxgl.accessToken,
+                      zoom: 17,
+                      placeholder: "Try: 3417 NE 11th Ave, Portland, OR 97212"
+                    });
+
+                    map.addControl(geocoder);
+                    
+                    function getaddress() {
+                          var search = {{object.id}};
+                          console.log(search);
+                            console.log(test);
+                          search += ', Portland, OR';
+                          console.log(search);
+                          geocoder.setInput(search);
+                          geocoder.query(search);
+
+                          geocoder.on('result', function(ev) {
+                            var coordinates = ev.result.geometry.coordinates;
+                            map.getSource('single-point').setData(ev.result.geometry);
+                            let coords = coordinates.toString();
+                            getTaxlot(coords);
+                            getZoning(coords);
+                          });
+                        }
+                    map.on('load', function () {
+                       getaddress();
+                      // add historic landmarks
+                      map.addLayer({
+                        "id": "historic-landmarks",
+                        "type": "symbol",
+                        "source": {
+                          type: 'vector',
+                          url: 'mapbox://grafa.54cm2qrh'
+                        },
+                        "source-layer": "Historic_Landmarks-b53rkq",
+                        "layout": {
+                          "icon-image": [
+                            "step",
+                            ["zoom"],
+                            "circle-11",
+                            10,
+                            "town-hall-11",
+                            22,
+                            "town-hall-15"
+                          ],
+                          "icon-size": [
+                            "interpolate",
+                            ["exponential", 1.31],
+                            ["zoom"],
+                            0,
+                            0.1,
+                            12,
+                            1,
+                            22,
+                            1
+                          ],
+                          "icon-allow-overlap": [
+                            "step",
+                            ["zoom"],
+                            false,
+                            12,
+                            true,
+                            22,
+                            true
+                          ]
+                        }
+                      });
+
+                        // add historic districts
+                        map.addLayer({
+                          "id": "historic-districts",
+                          "type": "fill",
+                          "source": {
+                            type: 'vector',
+                            url: 'mapbox://grafa.0fp7an2z'
+                          },
+                          "source-layer": "Historic_Districts-az4s9b",
+                          'layout': {},
+                          'paint': {
+                            'fill-pattern': 'districts',
+                            'fill-translate': [
+                              0,
+                              0
+                            ],
+                            'fill-opacity': [
+                              'interpolate',
+                                [
+                                  'linear'
+                                ],
+                                [
+                                  'zoom'
+                                ],
+                              0,
+                              0,
+                              14,
+                              0.1,
+                              22,
+                              1
+                            ]
+                            }
+                          }, 'building');
+
+                          // add conservation landmarks
+                          map.addLayer({
+                            "id": "conservation-landmarks",
+                            "type": "symbol",
+                            "source": {
+                              type: 'vector',
+                              url: 'mapbox://grafa.3atpxqqc'
+                            },
+                            "source-layer": "Conservation_Landmarks-2j0ujw",
+                            "layout": {
+                              "icon-image": "monument-15",
+                              "icon-allow-overlap": true
+                            }
+                          });
+
+                          // add conservation districts
+                          map.addLayer({
+                            "id": "conservation-districts",
+                            "type": "fill",
+                            "source": {
+                              type: 'vector',
+                              url: 'mapbox://grafa.c9vbzf3a'
+                            },
+                            "source-layer": "Conservation_Districts-4yul5g",
+                            'layout': {},
+                            'paint': {
+                              'fill-pattern': 'districts',
+                              'fill-translate': [
+                                0,
+                                0
+                              ],
+                              'fill-opacity': [
+                                'interpolate',
+                                  [
+                                    'linear'
+                                  ],
+                                  [
+                                    'zoom'
+                                  ],
+                                0,
+                                0,
+                                14,
+                                0.1,
+                                22,
+                                1
+                              ]
+                              }
+                            }, 'building');
+
+                          // add plan districts
+                          map.addLayer({
+                            'id': 'plan-districts',
+                            'type': 'fill',
+                            'source': {
+                              type: 'vector',
+                              url: 'mapbox://grafa.2wscp1hn'
+                            },
+                            'source-layer': 'Plan_Districts-8m8jxr',
+                            'layout': {},
+                            'paint': {
+                              'fill-pattern': 'districts',
+                              'fill-translate': [
+                                0,
+                                0
+                              ],
+                              'fill-opacity': [
+                                'interpolate',
+                                  [
+                                    'linear'
+                                  ],
+                                  [
+                                    'zoom'
+                                  ],
+                                0,
+                                0,
+                                14,
+                                0.1,
+                                22,
+                                1
+                              ]
+                              }
+                            },'building');
+
+                          // add geocoder result
+                          map.addSource('single-point', {
+                              "type": "geojson",
+                              "data": {
+                                  "type": "FeatureCollection",
+                                  "features": []
+                              }
+                          });
+
+                          map.addLayer({
+                              "id": "point",
+                              "source": "single-point",
+                              "type": "circle",
+                              "paint": {
+                                  "circle-radius": 5,
+                                  "circle-color": "#f30"
+                              }
+                          });
+
+                          // Create a popup, but don't add it to the map yet.
+                          var popup = new mapboxgl.Popup({
+                              closeButton: false,
+                              closeOnClick: false
+                            });
+
+                          map.on('mouseenter', 'taxlots', function(e) {
+                              // Change the cursor style as a UI indicator.
+                              map.getCanvas().style.cursor = 'pointer';
+
+                              // variables for description in popup
+                              var coordinates = e.features[0].geometry.coordinates.slice();
+                              var description = '<strong>Building SQFT:</strong> ' + e.features[0].properties.BLDGSQFT  +
+                              '<br><strong>Lot SQFT:</strong> ' + e.features[0].properties.A_T_SQFT +
+                              '<br><strong>FAR:</strong> ' + e.features[0].properties.BLDGSQFT / e.features[0].properties.A_T_SQFT;
+
+                              // Ensure that if the map is zoomed out such that multiple
+                              // copies of the feature are visible, the popup appears
+                              // over the copy being pointed to.
+                              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                                  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                              }
+
+                              // Populate the popup and set its coordinates
+                              // based on the feature found.
+                              popup.setLngLat(e.lngLat)
+                                  .setHTML(description)
+                                  .addTo(map);
+                          });
+
+                          map.on('mouseleave', 'taxlots', function() {
+                              map.getCanvas().style.cursor = '';
+                              popup.remove();
+                          });
+
+                          // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+                          // makes a selection and add a symbol that matches the result and then
+                          // add the taxlots.
+                          geocoder.on('result', function(ev) {
+                            var coordinates = ev.result.geometry.coordinates;
+                            map.getSource('single-point').setData(ev.result.geometry);
+                            let coords = coordinates.toString();
+                            getTaxlot(coords);
+                            getZoning(coords);
+                          });
+                        });
+
+                        
+
+                        // taxlot query
+                        const getTaxlot = (loc) => {
+                          var url = 'https://www.portlandmaps.com/arcgis/rest/services/Public/Taxlots/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=' + loc + '&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&queryByDistance=&returnExtentsOnly=false&datumTransformation=&parameterValues=&rangeValues=&f=geojson';
+                          var req = new XMLHttpRequest();
+                          req.responseType = 'json';
+                          req.open('GET', url, true);
+                          req.onload  = function() {
+                            var jsonResponse = req.response;
+                            if (map.getLayer('taxlots')) {
+                              map.getSource('taxlots').setData(jsonResponse);
+                            } else {
+                              map.addLayer({
+                                'id': 'taxlots',
+                                'type': 'fill',
+                                'source': {
+                                  'type': 'geojson',
+                                  'data': jsonResponse
+                                },
+                                'layout': {},
+                                'paint': {
+                                  'fill-color': '#088',
+                                  'fill-opacity': 0.8
+                                }
+                              }, 'building');
+                            }
+                          };
+                          req.send();
+                        }
+
+                        // zoning query
+                        const getZoning = (loc) => {
+                          var url = 'https://www.portlandmaps.com/arcgis/rest/services/Public/Zoning/MapServer/3/query?where=1%3D1&geometry=' + loc + '&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326&f=geojson';
+                          var req = new XMLHttpRequest();
+                          req.responseType = 'json';
+                          req.open('GET', url, true);
+                          req.onload  = function() {
+                            var jsonResponse = req.response;
+                            if (map.getLayer('zoning')) {
+                              map.getSource('zoning').setData(jsonResponse);
+                              map.getSource('zoning-label').setData(jsonResponse);
+                            } else {
+
+                              // add zoning layer
+                              map.addLayer({
+                                'id': 'zoning',
+                                'type': 'fill',
+                                'source': {
+                                  'type': 'geojson',
+                                  'data': jsonResponse
+                                },
+                                'paint': {
+                                  'fill-color': '#088',
+                                  'fill-opacity': 0.25
+                                }
+                              }, 'water');
+
+                              // add zoning label
+                              map.addLayer({
+                                'id': 'zoning-label',
+                                'type': 'symbol',
+                                'source': {
+                                  'type': 'geojson',
+                                  'data': jsonResponse
+                                },
+                                'layout': {
+                                  'text-field': '{CMP}',
+                                  'text-size': 24
+                                },
+                                'paint': {
+                                  'text-halo-color': '#fff',
+                                  'text-halo-width': 2.75
+                                }
+                              }, 'place-islets-archipelago-aboriginal');
+                            };
+                          };
+                          req.send();
+                        }
+                        </script>
+        </div>
+    </p>
     <br>
     <p> Contact: Portland Bureau of Development Services</p>
     <br>
