@@ -1,25 +1,23 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block hero %}
+    <div class="container-fluid">
+        <div id='map' style='width: 400px; height: 300px;'></div>
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JhZmEiLCJhIjoiY2ptYjNtZWxnMDBrdDNwbnVicGJzOWg2NyJ9.9OulyCe3kEqMAXPbx1mKUA';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/dark-v9',
+                zoom: 14,
+                center: [-122.66497032017605,45.55411587421071],
+                pitch: 35,
+            });
+        </script>
+    </div>
+{% endblock %}
+            
 
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
-  <style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:50%; }
-  #geocoder-container > div {
-    min-width:50%;
-    margin-left:25%;
-  }
-  </style>
-<style>
-  .mapboxgl-popup {
-    max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  }
-</style>
+{% block body %}
 
     <div class="row">
         <div class="col-md-7">
@@ -29,10 +27,9 @@
             <br>
             <br>
         </div>
-    <script>console.log("{{object.title}}");</script>
-    <!-- insert map here -->
     <p>
         {{ object.description }}
+    <!-- insert map here 
         <div class="row">
                 <div id='map'></div>
                     <script>
@@ -379,6 +376,7 @@
                         }
                         </script>
         </div>
+    -->
     </p>
     <br>
     <p> Contact: Portland Bureau of Development Services</p>
