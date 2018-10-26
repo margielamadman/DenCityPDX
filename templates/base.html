@@ -9,7 +9,29 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- bootstrap javascript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- mapbox-gl-js & geocoder -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+<!-- Map Style
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:50%; }
+  #geocoder-container > div {
+    min-width:50%;
+    margin-left:25%;
+  }
   </style>
+  <style>
+    .mapboxgl-popup {
+      max-width: 400px;
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+  </style>
+-->
+
   <!-- Favicon -->
   <link rel="shortcut icon" href="{% static 'll_app/img/favi.ico' %}">
 
@@ -17,10 +39,10 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default narbar-static-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" <img href="{% static 'll_app/img/icon-garbage-small.png'%}"> </a>
-      <!-- <img alt="DTC" src="/static/img/dtc-small.png"> -->
+  <div class="container-fluid">
+    <nav class="navbar navbar-default navbar-static-top">
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'll_app/img/icon-garbage-small.png' %}" width="30" height="30" class="d-inline-block align-top">
       </a>
       <!-- Brand and toggle get grouped for better mobile display -->
       <ul class="nav navbar-nav">
@@ -41,29 +63,31 @@
           <li><a href="/#about">About</a></li>
         </ul>
       </ul>
-    </div>
-  </nav>
-
-
-  {% block hero %}
-  {% endblock %}
+    </nav>
+  </div>
 
   <div class="container">
-    <div class="row">
+    {% block hero %}
+    {% endblock %}
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center">
       <div class="col-xl-9 mx-auto">
         {% block body %}
-        body content
         {% endblock %}
       </div>
     </div>
   </div>
 
-  <nav class="navbar navbar-bottom justify-content-center">
-    <!-- <div class="navbar-header"> -->
-    <div class="mx-auto order-0">
-      <p class="navbar-brand mx-auto"> Created for Hack-for-a-cause PDX 2018 </p>
-    </div>
-  </nav>
+  <div class="container">
+    <nav class="navbar navbar-bottom justify-content-center">
+      <!-- <div class="navbar-header"> -->
+      <div class="mx-auto order-0">
+        <p class="navbar-brand mx-auto"> Created for Hack-For-A-Cause PDX 2018 </p>
+      </div>
+    </nav>
+  </div>
 </body>
 
 </html>
